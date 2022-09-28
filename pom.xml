@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <artifactId>lutece-global-pom</artifactId>
+        <groupId>fr.paris.lutece.tools</groupId>
+        <version>6.0.0</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>fr.paris.lutece.plugins</groupId>
+
+    <artifactId>plugin-parser</artifactId>
+    <packaging>lutece-plugin</packaging>
+    
+    <version>1.0.0-SNAPSHOT</version>
+    <name>Lutece parser plugin</name>
+
+    <repositories>
+        <repository>
+            <id>lutece</id>
+            <name>luteceRepository</name>
+            <url>http://dev.lutece.paris.fr/maven_repository</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>luteceSnapshot</id>
+            <name>luteceSnapshot</name>
+            <url>http://dev.lutece.paris.fr/snapshot_repository</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>fr.paris.lutece</groupId>
+            <artifactId>lutece-core</artifactId>
+            <version>[7.1.0-SNAPSHOT,)</version>
+            <type>lutece-core</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.24</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-core</artifactId>
+            <version>${tikaVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-parsers</artifactId>
+            <version>${tikaVersion}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging-api</artifactId>
+                </exclusion>
+
+                <!-- Exclude many transitive dependencies because we don't use these parsers by default -->
+                <!-- This list needs to be revisted when upgrade tika-parsers -->
+
+                <!-- Provides
+                  org.gagravarr.tika.FlacParser
+                  org.gagravarr.tika.OpusParser
+                  org.gagravarr.tika.VorbisParser
+                  org.gagravarr.tika.OggAudioParser
+                  org.gagravarr.tika.OggParser
+                  org.gagravarr.tika.SpeexParser
+                  org.gagravarr.tika.TheoraParser
+                -->
+                <exclusion>
+                    <groupId>org.gagravarr</groupId>
+                    <artifactId>vorbis-java-tika</artifactId>
+                </exclusion>
+                <exclusion>
+                    <!-- see vorbis-java-tika -->
+                    <groupId>org.gagravarr</groupId>
+                    <artifactId>vorbis-java-core</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <!-- Used by org.apache.tika.parser.microsoft.JackcessParser -->
+                    <groupId>com.healthmarketscience.jackcess</groupId>
+                    <artifactId>jackcess</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <!-- Used by org.apache.tika.parser.microsoft.JackcessParser -->
+                    <groupId>com.healthmarketscience.jackcess</groupId>
+                    <artifactId>jackcess-encrypt</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <!-- Used by org.apache.tika.parser.mat.MatParser -->
+                    <groupId>net.sourceforge.jmatio</groupId>
+                    <artifactId>jmatio</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <!-- Used by org.apache.tika.parser.mp4.MP4Parser -->
+                    <groupId>com.googlecode.mp4parser</groupId>
+                    <artifactId>isoparser</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <!-- Used by
+                      org.apache.tika.parser.image.WebPParser
+                      org.apache.tika.parser.image.TiffParser
+                      org.apache.tika.parser.image.PSDParser
+                      org.apache.tika.parser.image.BPGParser
+                      org.apache.tika.parser.jpeg.JpegParser
+                    -->
+                    <groupId>com.drewnoakes</groupId>
+                    <artifactId>metadata-extractor</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <!-- Used by org.apache.tika.parser.mbox.OutlookPSTParser -->
+                    <groupId>com.pff</groupId>
+                    <artifactId>java-libpst</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <!-- Used by
+                      org.apache.tika.parser.journal.GrobidRESTParser
+                      org.apache.tika.parser.ner.NamedEntityParser (when using NLTKNERecogniser or GrobidNERecogniser)
+                    -->
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-rt-rs-client</artifactId>
+                </exclusion>
+
+                <!-- Used by
+                  org.apache.tika.parser.hdf.HDFParser
+                  org.apache.tika.parser.grib.GribParser
+                  org.apache.tika.parser.netcdf.NetCDFParser
+                -->
+                <exclusion>
+                    <groupId>edu.ucar</groupId>
+                    <artifactId>netcdf4</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>edu.ucar</groupId>
+                    <artifactId>grib</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>edu.ucar</groupId>
+                    <artifactId>cdm</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>edu.ucar</groupId>
+                    <artifactId>httpservices</artifactId>
+                </exclusion>
+
+                <!-- Used by org.apache.tika.parser.geoinfo.GeographicInformationParser -->
+                <exclusion>
+                    <groupId>org.apache.sis.core</groupId>
+                    <artifactId>sis-utility</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.sis.storage</groupId>
+                    <artifactId>sis-netcdf</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.sis.core</groupId>
+                    <artifactId>sis-metadata</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.opengis</groupId>
+                    <artifactId>geoapi</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <!-- Used by
+                      org.apache.tika.parser.sentiment.SentimentAnalysisParser
+                      org.apache.tika.parser.ner.NamedEntityParser (when using OpenNLPNERecogniser)
+                      org.apache.tika.parser.geo.topic.GeoParser (optional)
+                      -->
+                    <groupId>org.apache.opennlp</groupId>
+                    <artifactId>opennlp-tools</artifactId>
+                </exclusion>
+
+                <!-- Used by org.apache.tika.parser.asm.ClassParser -->
+                <exclusion>
+                    <groupId>org.ow2.asm</groupId>
+                    <artifactId>asm</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <properties>
+    	<tikaVersion>1.27</tikaVersion> <!-- tika components version, same as solr 8.10 -->
+        <componentName>parser</componentName>
+        <jiraProjectName>PLUGPARSER</jiraProjectName>
+        <jiraComponentId></jiraComponentId>
+    </properties>
+     <scm>
+        <connection>scm:git:https://github.com/lutece-platform/lutece-tech-plugin-parser.git</connection>
+        <developerConnection>scm:git:https://github.com/lutece-platform/lutece-tech-plugin-parser.git</developerConnection>
+        <url>https://github.com/lutece-platform/lutece-tech-plugin-parser.git</url>
+    </scm>
+    
+</project>
