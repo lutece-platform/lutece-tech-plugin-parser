@@ -88,6 +88,22 @@
                     <key><value>application/x-gzip</value></key>
                     <ref bean="parser.pkgParser" />
                 </entry>
+                <entry>
+                    <key><value>text/html</value></key>
+                    <ref bean="parser.htmlParser" />
+                </entry>
+                 <entry>
+                    <key><value>application/x-asp</value></key>
+                    <ref bean="parser.htmlParser" />
+                </entry>
+                 <entry>
+                    <key><value>application/xhtml+xml</value></key>
+                    <ref bean="parser.htmlParser" />
+                </entry>
+                <entry>
+                    <key><value>application/vnd.wap.xhtml+xml</value></key>
+                    <ref bean="parser.htmlParser" />
+                </entry>
             </map>
         </property>
  	 </bean>
@@ -115,7 +131,11 @@
             <bean class="org.apache.tika.parser.microsoft.ooxml.OOXMLParser" />
         </property>
     </bean>
-    
+    <bean lazy-init="true" id="parser.htmlParser" class="fr.paris.lutece.plugins.parser.service.TikaParser">
+        <property name="parser">
+            <bean class="org.apache.tika.parser.html.HtmlParser" />
+        </property>
+    </bean>
     <bean id="parser.pdfFileParser" class="fr.paris.lutece.plugins.parser.service.PdfFileParser" />
  
 </beans>
