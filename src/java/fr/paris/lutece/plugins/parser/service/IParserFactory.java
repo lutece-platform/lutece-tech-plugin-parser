@@ -42,6 +42,7 @@ import fr.paris.lutece.plugins.lucene.service.indexer.IFileIndexerFactory;
 /**
  * Parser Factory
  */
+@Deprecated
 public interface IParserFactory extends IFileIndexerFactory
 {
     /**

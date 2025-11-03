@@ -41,21 +41,22 @@ import fr.paris.lutece.plugins.lucene.service.indexer.IFileIndexer;
  * 
  * A stream parser
  */
+@Deprecated
 public interface IStreamParser extends IFileIndexer
 {
 
     /**
-     * Parse the inputStream content. The <code>InputStream</code> is <b>closed</b> within this method.
+     * Parse the inputStream content.
      * 
      * @param is
      *            input stream.
      * @return the content parsed
      */
-
+	@Deprecated
     String parse( InputStream is );
 
     /**
-     * Parse the inputStream content. The <code>InputStream</code> is <b>closed</b> within this method.
+     * Parse the inputStream content.
      * 
      * @param is
      *            input stream.
