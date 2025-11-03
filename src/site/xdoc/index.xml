@@ -1,30 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
     <properties>
-        <title>Plugin parser</title>
+        <title>Lutece-tech-plugin-parser</title>
     </properties>
     <head>
-        <!-- Keywords example : "cms, authentication, cms, workflow, seo, collaborative, ..." 
-             Use the language of this xdoc -->
         <meta name="keywords" content="" />
     </head>
     <body>
-        <section name="Plugin parser">
-            <!--
-            <p>
-                <img src="images/parser.png" />
-            </p>
-            -->
-            <subsection name="Introduction">
-                <p></p>
-            </subsection>
-            <subsection name="Configuration">
-                <p></p>
-            </subsection>
-            <subsection name="Usage">
-                <p></p>
-            </subsection>
+        <section name="Lutece-tech-plugin-parser">
+            <section name="Introduction">
+                <p>
+                This plugin exposes service for parsing different types of documents stream (pdf, office, openDocument, ooXML, pkg...). It uses tika and pdfbox projects.
+                This plugin provides a universal document parsing service supporting 100+ file formats including PDF, MS Office, OpenDocument, HTML, archives, and more.
+                </p>
+            </section>
+            <section name="🚀 Features">
+	            <ul>
+	                <li><b>Universal format detection</b>: Automatically detects and parses any supported document format</li>
+	                <li><b>100+ formats supported</b>: PDF, DOC/DOCX, XLS/XLSX, PPT/PPTX, ODT/ODS/ODP, HTML, ZIP, and many more</li>
+	                <li><b>Modern &amp; secure</b>: Uses Apache Tika 3.2.2 and PDFBox 3.0.5 with zero known CVEs</li>
+	                <li><b>Simple API</b>: One unified interface for all document types</li>
+	                <li><b>CDI integration</b>: Full Jakarta EE dependency injection support</li>
+	            </ul>
+        	</section>
+
+	        <section name="📦 Architecture">
+	            <p>The plugin uses <b>Apache Tika's AutoDetectParser</b> for intelligent format detection and parsing:
+	            
+	            	```
+					IParserFactory → TikaAutoDetectParser → AutoDetectParser (Tika)
+	                                        				└─&gt; Automatic format detection
+	            	```
+	            </p>
+	        </section>
+
+        	<section name="💻 Usage">
+            	<subsection name="Basic parsing example">
+                	<p>
+                	<source lang="java">
+                		```
+						@Inject
+						@Named("parser.parserFactory")
+						private IParserFactory parserFactory;
+
+						// Get a parser for any MIME type
+						Optional&lt;IStreamParser&gt; parser = factoryParser.getParser("application/pdf");
+						
+						// Parse the document
+						File file = new File(sourcePath);
+						InputStream inputStream = new FileInputStream(file);
+						String content = parser.get().parse(inputStream);
+                		```
+                	</source>
+                	</p>
+            	</subsection>
+
+            	<subsection name="Direct parser injection">
+            		<p>
+                	<source lang="java">
+                		```
+						@Inject
+						@Named("parser.autoDetectParser")
+						private IStreamParser autoDetectParser;
+						
+						// Parse any document - format detected automatically
+						String content = autoDetectParser.parse(inputStream);
+	                	```
+	                </source>
+	                </p>
+	            </subsection>
+        	</section>
+
+	        <section name="📋 Supported Formats">
+	            <ul>
+	                <li><b>Documents</b>: PDF, DOC, DOCX, ODT, RTF</li>
+	                <li><b>Spreadsheets</b>: XLS, XLSX, ODS, CSV</li>
+	                <li><b>Presentations</b>: PPT, PPTX, ODP</li>
+	                <li><b>Web</b>: HTML, XHTML, XML</li>
+	                <li><b>Archives</b>: ZIP, TAR, GZIP, 7Z</li>
+	                <li><b>Images</b>: JPEG, PNG, GIF, TIFF (with metadata extraction)</li>
+	                <li><b>And 90+ more formats...</b></li>
+	            </ul>
+	        </section>
+
+		    <section name="Configuration">
+		    </section>
+		    
+	        <section name="🔒 Security">
+	            <p>This version uses the latest stable releases:</p>
+	            <ul>
+	                <li>Apache Tika 3.2.2</li>
+	                <li>Apache PDFBox 3.0.5</li>
+	            </ul>
+	        </section>
+
+	        <section name="📚 Documentation">
+	            <ul>
+	                <li><a href="https://tika.apache.org/">Apache Tika Documentation</a></li>
+	            </ul>
+	        </section>
         </section>
     </body>
 </document>
+
+
+
 

@@ -7,24 +7,24 @@
 
 # Introduction
 
-This plugin exposes service for parsing different types of documents stream (pdf, office, openDocument, ooXML, pkg...). It uses tika and pdfbox projects. This plugin provides a universal document parsing service supporting 100+ file formats including PDF, MS Office, OpenDocument, HTML, archives, and more.
+Ce plugin expose un service permettant d’analyser différents types de flux de documents (PDF, Office, OpenDocument, OOXML, PKG, etc.). Il utilise les projets Tika et PDFBox. Ce plugin fournit un service universel d’analyse de documents prenant en charge plus de 100 formats, dont PDF, MS Office, OpenDocument, HTML, les archives et bien d’autres.
 
 # 🚀 Features
 
  
-*  **Universal format detection** : Automatically detects and parses any supported document format
-*  **100+ formats supported** : PDF, DOC/DOCX, XLS/XLSX, PPT/PPTX, ODT/ODS/ODP, HTML, ZIP, and many more
-*  **Modern&secure** : Uses Apache Tika 3.2.2 and PDFBox 3.0.5 with zero known CVEs
-*  **Simple API** : One unified interface for all document types
-*  **CDI integration** : Full Jakarta EE dependency injection support
+*  **Détection universelle des formats** : détecte et analyse automatiquement tout format de document pris en charge
+*  **Plus de 100 formats pris en charge** : PDF, DOC/DOCX, XLS/XLSX, PPT/PPTX, ODT/ODS/ODP, HTML, ZIP, et bien d’autres
+*  **Moderne&sécurisé** : utilise Apache Tika 3.2.2 et PDFBox 3.0.5 sans aucune vulnérabilité connue
+*  **API simple** : une interface unifiée pour tous les types de documents
+*  **Intégration CDI** : prise en charge complète de l’injection de dépendances Jakarta EE
 
 # 📦 Architecture
 
-The plugin uses **Apache Tika's AutoDetectParser** for intelligent format detection and parsing:
+Ce plugin utilise **Apache Tika's AutoDetectParser** pour une detection de format et un parsing intelligent :
 
 ``` 
 IParserFactory → TikaAutoDetectParser → AutoDetectParser (Tika)
-												 └─>Automatic format detection 
+											└─>Automatic format detection 
 ```
 
 # 💻 Usage
@@ -56,7 +56,7 @@ private IStreamParser autoDetectParser;
 String content = autoDetectParser.parse(inputStream); 
 ```
 
-# 📋 Supported Formats
+# 📋 Formats supportés
 
  
 *  **Documents** : PDF, DOC, DOCX, ODT, RTF
@@ -71,7 +71,7 @@ String content = autoDetectParser.parse(inputStream);
 
 # 🔒 Security
 
-This version uses the latest stable releases:
+Cette version utilise les dernières versions stables
 
  
 * Apache Tika 3.2.2

@@ -50,6 +50,7 @@ import fr.paris.lutece.portal.service.util.AppLogService;
 /**
  * Wraps a tika parser, such as {@link OfficeParser}
  */
+@Deprecated
 public class TikaParser implements IStreamParser
 {
     private Parser _parser;
@@ -68,8 +69,11 @@ public class TikaParser implements IStreamParser
     /**
      * 
      * {@inheritDoc}
-     */
+     * @deprecated Used {@link parseToString}.
+     * @see TikaAutoDetectParser
+     */   
     @Override
+    @Deprecated
     public String parse( InputStream is )
     {
         String result = null;

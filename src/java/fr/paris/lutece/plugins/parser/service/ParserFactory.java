@@ -40,6 +40,12 @@ import java.util.Optional;
 import fr.paris.lutece.plugins.lucene.service.indexer.IFileIndexer;
 import fr.paris.lutece.portal.service.util.AppLogService;
 
+/**
+ * 
+ * @deprecated Used {@link TikaAutoDetectParser}.
+ * @see TikaAutoDetectParser
+ */  
+@Deprecated
 public class ParserFactory implements IParserFactory
 {
 

@@ -36,14 +36,21 @@ package fr.paris.lutece.plugins.parser.service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
 import fr.paris.lutece.portal.service.util.AppLogService;
 
 /**
- * PdfFileParser parse PDF files
+ * PdfFileParser parse PDF files using PDFBox library directly.
+ * 
+ * @deprecated This parser is deprecated in favor of {@link TikaAutoDetectParser} which provides
+ * universal format detection and parsing. TikaAutoDetectParser handles PDF and all other formats
+ * automatically, simplifying the architecture and reducing maintenance overhead.
+ * This class is kept for backward compatibility but will be removed in a future version.
  */
+@Deprecated
 public class PdfFileParser implements IStreamParser
 {
     /**
@@ -54,7 +61,7 @@ public class PdfFileParser implements IStreamParser
     public String parse( InputStream is )
     {
         String strContent = "";
-        try ( PDDocument pdfDocument = PDDocument.load( is ) )
+        try ( PDDocument pdfDocument = Loader.loadPDF( is.readAllBytes( ) ) )
         {
             if ( pdfDocument.isEncrypted( ) )
             {
@@ -68,7 +75,10 @@ public class PdfFileParser implements IStreamParser
         }
         catch( IOException e )
         {
-            AppLogService.error( e.getMessage( ), e );
+        	 AppLogService.error( e.getMessage( ), e );
+        	// Error during PDF parsing
+            strContent = "";
+            
         }
 
         return strContent;
